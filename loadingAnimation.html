@@ -37,8 +37,11 @@
         // This line modifies the DOM with the .textContent method. It changes the displayed animation 
         // frame based on the value of 'index'. The '% frames.length' part means that even as 'index'
         // continues increasing, this line will repeatedly loop through the limited length of the
-        // 'frames' array.
-        loader.textContent = frames[index % frames.length];
+        // 'frames' array. My code modification requires a different method; so I commented it out and
+        // replaced it.
+        // loader.textContent = frames[index % frames.length];
+        // My code modification displays a countdown below the animation frame.
+        loader.innerHTML = frames[index % frames.length] + "<br>" + (49 - index);
         // This line increments 'index'.
         index++;
         // These three lines increment the cycle counter each time 'index' reaches the end of 'frames'.
@@ -59,8 +62,10 @@
         // This is the interval passed to setInterval() (500 milliseconds).
       }, 500);
     }
-    // Everything above this line is a function that doesn't run until it is called. This line calls it.
+// Everything above this line is a function that doesn't run until it is called. This line calls it.
     runLoadingAnimation();
+// CREATIVE IDEA: I would like a big jack-in-the-box to pop up with the text, "SURPRISE!!" at the end of
+// the animation.
   </script>
 
 </body>
