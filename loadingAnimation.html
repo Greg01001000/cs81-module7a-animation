@@ -1,0 +1,67 @@
+<!-- CS 81 Module 7 Assignment 7A: Code Review, by GregH, 7/20/25 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
+  <div id="status">Please wait</div>
+
+  <script>
+    // This function does everything that this script does (specifies the visuals/frames of the
+    // animation, where they will appear on the web page, and defines the animation loop, interval, and
+    // final image and displayed text)
+    function runLoadingAnimation() {
+      // The HTML defines a section of the page which at first says "Loading...". This line selects that
+      // element by its ID and stores it in 'loader' to change its content later.
+      const loader = document.getElementById("loader");
+      // The next section in the HTML has the text "Please wait". This line selects that element by its
+      // ID and stores it in 'status' to change its content later.
+      const status = document.getElementById("status");
+
+      // This line stores an array of the animation frames/symbols in 'frames'.
+      const frames = ["⏳", "⌛", ".", "..", "..."];
+      // This line initializes the index/counter which will determine which frame to display.
+      let index = 0;
+      // This line initializes a cycle counter to limit the number of times the animation can loop.
+      let cycleCount = 0;
+      // This line sets the limit on the number of times the animation can loop.
+      const maxCycles = 10;
+
+      // This function is the loop that changes the animation frame. setInterval() always runs repeatedly
+      // until clearInterval() is called. Here, the interval is 500 milliseconds.
+      const interval = setInterval(() => {
+        // This line modifies the DOM with the .textContent method. It changes the displayed animation 
+        // frame based on the value of 'index'. The '% frames.length' part means that even as 'index'
+        // continues increasing, this line will repeatedly loop through the limited length of the
+        // 'frames' array.
+        loader.textContent = frames[index % frames.length];
+        // This line increments 'index'.
+        index++;
+        // These three lines increment the cycle counter each time 'index' reaches the end of 'frames'.
+       if (index % frames.length === 0) {
+         cycleCount++;
+        }
+        // If the cycle counter reaches the limit of cycles, the next few lines stop the loop by calling
+        // clearInterval(), change the displayed symbol from 'frames' to a checkmark, and change the 
+        // displayed text right below that to "Done!".
+        if (cycleCount >= maxCycles) {
+          // setInterval() always runs repeatedly until clearInterval() is called on it; so calling 
+          // clearInterval on this function stops the loop.
+          clearInterval(interval);
+          // These two lines modify the DOM with the .textContent method. 
+          loader.textContent = "✅";
+          status.textContent = "Done!";
+        }
+        // This is the interval passed to setInterval() (500 milliseconds).
+      }, 500);
+    }
+    // Everything above this line is a function that doesn't run until it is called. This line calls it.
+    runLoadingAnimation();
+  </script>
+
+</body>
+</html>
